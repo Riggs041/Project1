@@ -75,22 +75,8 @@ input::placeholder {
 
 .intro {
     display: flex;
-}
-
-.intro img {
-    margin-left: 50px;
-    margin-top: 35px;
-}
-
-.intro p {
-    margin: 35px 15px 20px 15px;
-    font-weight: 400;
-    color: white;
-    word-wrap: normal;
-    font-size: 1.2rem;
-    width: 60%;
-    height: 170px;
-    word-wrap: break-word;
+    height: 225;
+    padding: 0;
 }
 
 .carousel-control-next-icon {
