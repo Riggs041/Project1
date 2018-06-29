@@ -1,0 +1,104 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.head-container {
+    background: #3c4044;
+}
+
+.head-container h1 {
+    font-weight: 400;
+    font-size: 2em;
+    color: white;
+    padding: 15px 0 15px 40px;
+    margin-bottom: 0;
+  
+}
+
+.hero-container {
+    background:  #3c4044;
+    text-align: center;
+}
+
+.hero-title h1 {
+    font-weight: 700;
+    color: white;
+    font-size: 4rem;
+    padding-top: 90px;
+    margin-bottom: 0;
+}
+
+.hero-sub p {
+    font-weight: 400;
+    color: white;
+    font-size: 2rem;
+    padding-bottom: 80px;
+}
+
+#music-input {
+    width: 370px;
+    font-size: 1.3rem;
+    color: #000;
+    padding: 4px;
+    border: 0 solid;
+    border-radius: 4px;
+    margin-right: 15px;
+}
+
+input::placeholder {
+    color: #000;
+    padding: 4px;
+}
+
+#find-music {
+    width: 90px;
+    padding: 6px;
+    border: 0 solid;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    background: #E2584D;
+    font-weight: 700;
+    color: white;
+}
+
+.hero-search {
+    padding-bottom: 220px;
+}
+
+.carousel {
+    height: 225px;
+    background: #E2584D;
+}
+
+.intro {
+    display: flex;
+}
+
+.intro img {
+    margin-left: 50px;
+    margin-top: 35px;
+}
+
+.intro p {
+    margin: 35px 15px 20px 15px;
+    font-weight: 400;
+    color: white;
+    word-wrap: normal;
+    font-size: 1.2rem;
+    width: 60%;
+    height: 170px;
+    word-wrap: break-word;
+}
+
+.carousel-control-next-icon {
+    right: 15px;
+    position: absolute;
+}
+
+.carousel-control-prev-icon {
+    left: 15px;
+    position: absolute;
+}
