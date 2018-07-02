@@ -6,9 +6,9 @@ $(document).ready(function () {
     let songName = "";
     let artistName = "";
     let imageArray = [
-        '<img src="assets/images/minneapolis.jpg" class="rounded mx-auto d-block" alt="Minneapolis">',
-        '<img src="assets/images/houston.jpg" class="rounded mx-auto d-block" alt="Houston">',
-        '<img src="assets/images/nyc.jpg" class="rounded mx-auto d-block" alt="New York City">',
+        '<img src="assets/images/minneapolis.jpg" class="city" alt="Minneapolis">',
+        '<img src="assets/images/houston.jpg" class="city" alt="Houston">',
+        '<img src="assets/images/nyc.jpg" class="city" alt="New York City">',
     ]
     $("#search").hide();
 
@@ -261,10 +261,8 @@ $(document).ready(function () {
                     let perfEvent = response.performers[i].num_upcoming_events;
                     let tixURL = response.performers[i].url;
                     let newCard = $("<div>")
-                    newCard.addClass("col-md-3");
+                    newCard.addClass("col-md-4");
                     newCard.addClass("card");
-                    let fillDiv = $("<div>")
-                    fillDiv.addClass("col-md-1");
                     let newDiv = $("<div>");
                     newDiv.addClass("card-body")
                     let pName = $("<h6>");
@@ -284,7 +282,6 @@ $(document).ready(function () {
                     newCard.append(newDiv);
                     newCard.append(footerDiv);
                     $("#seatGeek").append(newCard);
-                    $("#seatGeek").append(fillDiv);
                 }
             }
         })
