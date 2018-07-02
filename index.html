@@ -17,6 +17,7 @@
         crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="assets/reset.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
     <script src="assets/javascript/app.js"></script>
 </head>
 
@@ -26,102 +27,219 @@
             <span style="color:#E2584D;">M.</span>
         </h1>
     </div>
-    <div class="hero-container">
-        <div class="hero-title">
-            <h1>music
-                <span style="color:#E2584D;">Magician</span>
-            </h1>
-            <div class="hero-sub">
-                <p>Discover new music and upcoming concerts.</p>
+    <div id="landing">
+        <div class="hero-container">
+            <div class="hero-title">
+                <h1>music
+                    <span style="color:#E2584D;">Magician</span>
+                </h1>
+                <div class="hero-sub">
+                    <p>Discover new music and upcoming concerts.</p>
+                </div>
+            </div>
+            <div class="hero-search">
+                <form id="music-form">
+                    <input type="text" id="music-input" placeholder="Search Artist Here">
+                    <input type="submit" id="find-music" value="Search">
+                </form>
             </div>
         </div>
-        <div class="hero-search">
-            <form id="music-form">
-                <input type="text" id="music-input" placeholder="Search Artist Here">
-                <input type="submit" id="find-music" value="Search" >
-            </form>
+
+        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row">
+                        <div class="col-sm-12 intro">
+                            <!-- add image here -->
+                            <img src="assets/images/bandPic.jpg" class="bandPicture">
+                        </div>
+                        <!-- <div class="col-sm-4 intro"> -->
+                        <!-- add image here -->
+                        <!-- </div> -->
+                        <!-- <div class="col-sm-4 intro"> -->
+                        <!-- add image here -->
+                        <!-- </div> -->
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-sm-12 intro">
+                            <!-- add image here -->
+                            <img src="assets/images/band2.jpg" class="bandPicture">
+                        </div>
+                        <!-- <div class="col-sm-4 intro"> -->
+                        <!-- add image here -->
+                        <!-- </div> -->
+                        <!-- <div class="col-sm-4 intro"> -->
+                        <!-- add image here -->
+                        <!-- </div> -->
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-sm-12 intro">
+                            <!-- add image here -->
+                            <img src="assets/images/band3.jpg" class="bandPicture">
+                        </div>
+                        <!-- <div class="col-sm-4 intro"> -->
+                        <!-- add image here -->
+                        <!-- </div> -->
+                        <!-- <div class="col-sm-4 intro"> -->
+                        <!-- add image here -->
+                        <!-- </div> -->
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="row">
+                        <div class="col-sm-12 intro">
+                            <!-- add image here -->
+                            <img src="assets/images/band4.jpg" class="bandPicture">
+                        </div>
+                        <!-- <div class="col-sm-4 intro"> -->
+                        <!-- add image here -->
+                        <!-- </div> -->
+                        <!-- <div class="col-sm-4 intro"> -->
+                        <!-- add image here -->
+                        <!-- </div> -->
+                    </div>
+                </div>
+
+
+                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
         </div>
     </div>
-
-    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="row">
-                    <div class="col-sm-12 intro">
-                        <!-- add image here -->
-                        <img src="assets/images/bandPic.jpg" class="bandPicture">
+    <div id="search">
+        <div class="container text-center">
+            <h3>Discover the Magic</h3>
+            <br>
+            <div class="row">
+                <div class="col-md-4 sidenav" style="background-color:#3c4044">
+                    <nav class="navbar navbar-light bg-light">
+                        <a class="navbar-brand" style="color: aliceblue">GIF/Photo Gallery</a>
+                        <form class="form-inline">
+                            <input class="form-control mr-md-2" type="search" placeholder="artist name" aria-label="artist name">
+                            <button class="btn btn-outline-success my-2 my-md-0" type="submit">Search</button>
+                        </form>
+                    </nav>
+                    <h4 id="artist-name"></h4>
+                    <hr>
+                    <div class="well">
+                        <div class="text-center">
+                            <img src="https://img.etsystatic.com/il/8711cb/1128703180/il_570xN.1128703180_s5ng.jpg?version=0" class="rounded" alt="...">
+                        </div>
                     </div>
-                    <!-- <div class="col-sm-4 intro"> -->
-                    <!-- add image here -->
-                    <!-- </div> -->
-                    <!-- <div class="col-sm-4 intro"> -->
-                    <!-- add image here -->
-                    <!-- </div> -->
+                    <div class="well">
+                        <div class="text-center">
+                            <img src="https://s3.amazonaws.com/creativeallies/snapshots/000/053/027/original/VanM_Poster_CapitalT.jpg?1349976861" class="rounded"
+                                alt="...">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-md-4 text-center">
+                    <div class="well" style="background-color:#3c4044" id="band-info">
+                        
+                    </div>
+                    <hr>
+                </div>
+
+                <div class="col-md-4 sidenav" style="background-color:#3c4044">
+                    <nav class="navbar navbar-light bg-light">
+                        <a class="navbar-brand" style="color: aliceblue">Search Song Lyrics</a>
+                        <form class="form-inline">
+                            <input class="form-control mr-md-2" type="search" placeholder="Song Title" aria-label="Song Title">
+                            <button class="btn btn-outline-success my-2 my-md-0" type="submit">Search</button>
+                        </form>
+                    </nav>
+                    <h4>Into The Mystic</h4>
+                    <hr>
+                    <div class="lyrics" style="color: #E2584D">
+                        <p>We were born before the wind Also younger than the sun Ere the bonnie boat was won As we sailed into
+                            the mystic Hark, now hear the sailors cry Smell the sea and feel the sky Let your soul and spirit
+                            fly Into the mystic And when that fog horn blows I will be coming home, mmm mmm And when the
+                            fog horn blows I want to hear it I don't have to fear it I wanna rock your gypsy soul Just like
+                            way back in the days of old Then magnificently we will float Into the mystic When that fog horn
+                            blows You know I will be coming home And when that fog horn whistle blows I gotta hear it I don't
+                            have to fear it And I wanna rock your gypsy soul Just like way back in the days of old And together
+                            we will float Into the mystic Come on girl Will they stop now
+                        </p>
+                    </div>
+                </div>
+
+                <hr>
+            </div>
+
+            <div class="container-fluid text-center">
+                <hr>
+                <div class="row">
+                    <div class="card-deck">
+
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="https://explore-us-uploads.imgix.net/wp-content/uploads/2017/12/1400MU-header_houston_3-original.jpg?auto=format&crop=entropy&fit=crop&h=535&q=25&w=1024"
+                                    class="rounded mx-auto d-block" alt="Van Morrison">
+                                <div class="card-body">
+                                    <h4 class="card-title">Houston</h4>
+                                    <p class="card-text">See Van Morrison Live in Concert!</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Tickets starting at $49</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1"></div>
+
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="https://www.roadtrips.com/wp-content/uploads/2017/12/minneapolis.jpg" class="rounded mx-auto d-block" alt="Van Morrison">
+                                <div class="card-body">
+                                    <h4 class="card-title">Minneapolis</h4>
+                                    <p class="card-text">See Van Morrison Live in Concert!</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Tickets starting at $49</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-1"></div>
+
+                        <div class="col-md-3">
+                            <div class="card">
+                                <img src="https://media.timeout.com/images/103444978/630/472/image.jpg" class="rounded mx-auto d-block" alt="Van Morrison">
+                                <div class="card-body">
+                                    <h4 class="card-title">New York City</h4>
+                                    <p class="card-text">See Van Morrison Live in Concert!</p>
+                                </div>
+                                <div class="card-footer">
+                                    <small class="text-muted">Tickets starting at $49</small>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
-            <div class="carousel-item">
-                <div class="row">
-                    <div class="col-sm-12 intro">
-                        <!-- add image here -->
-                        <img src="assets/images/band2.jpg" class="bandPicture">
-                    </div>
-                    <!-- <div class="col-sm-4 intro"> -->
-                    <!-- add image here -->
-                    <!-- </div> -->
-                    <!-- <div class="col-sm-4 intro"> -->
-                    <!-- add image here -->
-                    <!-- </div> -->
-                </div>
-            </div>
 
-            <div class="carousel-item">
-                <div class="row">
-                    <div class="col-sm-12 intro">
-                        <!-- add image here -->
-                        <img src="assets/images/band3.jpg" class="bandPicture">
-                    </div>
-                    <!-- <div class="col-sm-4 intro"> -->
-                    <!-- add image here -->
-                    <!-- </div> -->
-                    <!-- <div class="col-sm-4 intro"> -->
-                    <!-- add image here -->
-                    <!-- </div> -->
-                </div>
-            </div>
+            <hr>
 
-            <div class="carousel-item">
-                <div class="row">
-                    <div class="col-sm-12 intro">
-                        <!-- add image here -->
-                        <img src="assets/images/band4.jpg" class="bandPicture">
-                    </div>
-                    <!-- <div class="col-sm-4 intro"> -->
-                    <!-- add image here -->
-                    <!-- </div> -->
-                    <!-- <div class="col-sm-4 intro"> -->
-                    <!-- add image here -->
-                    <!-- </div> -->
-                </div>
-            </div>
-
-
-            <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
+            <footer class="container-fluid text-center" style="background-color: #3c4044">
+                <p>Footer Text</p>
+            </footer>
         </div>
-
-
-        <!-- <script src="http://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-            crossorigin="anonymous"></script> -->
+    </div>
 
 
 </body>

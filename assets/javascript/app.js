@@ -5,9 +5,12 @@ $(document).ready(function () {
     let songSearch = "";
     let songName = "";
     let artistName = "";
+    $("#search").hide();
 
     $(document).on("click", "#find-music", function () {
         event.preventDefault();
+        $("#landing").hide();
+        $("#search").show();
         artistSearch = $("#music-input").val();
         console.log(artistSearch)
         seatGeakAPI();
@@ -41,6 +44,7 @@ $(document).ready(function () {
                 console.log(response.message.body.artist_list[0].artist.artist_twitter_url)
                 artistID = response.message.body.artist_list[0].artist.artist_id;
                 artistName = response.message.body.artist_list[0].artist.artist_name
+                
                 $("#artist-name").text(artistName)
                 let newLink = $("<a>");
                 newLink.addClass("card-link");
@@ -62,7 +66,7 @@ $(document).ready(function () {
                 let lyricSearch = $("<p>")
                 lyricSearch.text("Search for a song by " + artistName + " to get lyrics!")
                 $("#band-info").append(lyricSearch);
-                artistSearch = "";
+                // artistSearch = "";
             }
         })
     })
@@ -165,12 +169,12 @@ $(document).ready(function () {
             }
         }).then(function (response) {
             console.log(response.performers[0].has_upcoming_events)
-            if (artistSearch == "Elvis" || artistSearch == "Evlis Presley"){
+            if (artistSearch == "Elvis" || artistSearch == "Evlis Presley") {
                 let elvis = $("<p>")
                 elvis.text("Elvis has left the building");
                 $("#seatGeek").append(elvis);
             }
-            
+
             else if (response.performers[0].has_upcoming_events === false) {
                 let noShows = $("<p>")
                 noShows.text("Sorry! We Did Not Find Any Shows For This Artist!")
@@ -208,7 +212,7 @@ $(document).ready(function () {
                 $("#imghere").empty();
                 var results = response.photos.photo
                 console.log(results)
-                for (var i = 0; i < 10; i++) {
+                for (var i = 50; i < 60; i++) {
                     var farmid = results[i]["farm"];
                     var serverid = results[i]["server"];
                     var id = results[i]["id"];
