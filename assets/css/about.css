@@ -1,0 +1,65 @@
+.card {
+    background-color:#3c4044; 
+    color:white; 
+    border-radius: 50px;
+    border: 2px solid lightgray;
+    box-shadow: 1px 1px 20px lightgray;  
+ }
+ .video {
+    width: 95%;
+    height: 200px;
+ }
+ img {
+     /* width: 200px;
+     height: 300px; */
+     border-radius: 50px;
+     margin-left: auto;
+     margin-right: auto;
+     margin-bottom: 10px;
+ }
+ #accordionExample {
+     float: left;
+     width: 20%;
+     margin-top: 2%; 
+     margin-left: 2.5%;
+     margin-right: 5%;   
+ }
+ #accordionExample2 {
+     float: left;
+     width: 20%;
+     margin-top: 2%;
+     margin-right: 5%;    
+ }
+ #accordionExample3 {
+     float: left;
+     width: 20%;
+     margin-top: 2%;
+     margin-right: 5%;     
+ }
+ #accordionExample4 {
+     float: left;
+     width: 20%;
+     margin-top: 2%;    
+ }
+ body {
+     background-color:#191919
+ }
+ .names {
+     color: #E2584D;
+     margin-left:20px;
+     margin-top: 10px;
+     letter-spacing: 8px;
+     text-shadow: .5px .5px 1px white;
+ }
+ .btn {
+     color: #E2584D;	
+ }
+ #heading {
+     text-align: center;
+     background-color: #E2584D;
+     padding: 30px;
+     color: white;
+     letter-spacing: 4px;
+ }
+ 
+ 
