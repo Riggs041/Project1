@@ -5,6 +5,11 @@ $(document).ready(function () {
     let songSearch = "";
     let songName = "";
     let artistName = "";
+    let imageArray = [
+        '<img src="assets/images/minneapolis.jpg" class="rounded mx-auto d-block" alt="Minneapolis">',
+        '<img src="assets/images/houston.jpg" class="rounded mx-auto d-block" alt="Houston">',
+        '<img src="assets/images/nyc.jpg" class="rounded mx-auto d-block" alt="New York City">',
+    ]
     $("#search").hide();
 
     $(document).on("click", "#find-music", function () {
@@ -15,6 +20,7 @@ $(document).ready(function () {
         console.log(artistSearch)
         seatGeakAPI();
         flickrAPI();
+        $("#lyrics").empty();
         $("#band-info").empty();
         $.ajax({
             type: "GET",
@@ -44,7 +50,7 @@ $(document).ready(function () {
                 console.log(response.message.body.artist_list[0].artist.artist_twitter_url)
                 artistID = response.message.body.artist_list[0].artist.artist_id;
                 artistName = response.message.body.artist_list[0].artist.artist_name
-                
+
                 $("#artist-name").text(artistName)
                 let newLink = $("<a>");
                 newLink.addClass("card-link");
@@ -66,14 +72,81 @@ $(document).ready(function () {
                 let lyricSearch = $("<p>")
                 lyricSearch.text("Search for a song by " + artistName + " to get lyrics!")
                 $("#band-info").append(lyricSearch);
-                // artistSearch = "";
+                artistSearch = "";
+                artistName = "";
             }
         })
     })
+    $(document).on("click", "#find-music2", function () {
+        event.preventDefault();
+        $("#landing").hide();
+        $("#search").show();
+        artistSearch = $("#music-input2").val();
+        console.log(artistSearch)
+        seatGeakAPI();
+        flickrAPI();
+        $("#lyrics").empty();
+        $("#band-info").empty();
+        $.ajax({
+            type: "GET",
+            data: {
+                apikey: "09b22cab81909924e1542cfdadffe284",
+                q_artist: artistSearch,
+                format: "jsonp",
+                callback: "jsonp_callback"
+            },
+            url: "https://api.musixmatch.com/ws/1.1/artist.search?",
+            dataType: "jsonp",
+            jsonpCallback: 'jsonp_callback',
+            contentType: 'application/json',
+            success: function (data) {
+                console.log(data);
+            }
+        }).then(function (response) {
+            if (response.message.body.artist_list.length === 0) {
+                let alert = $("<p>")
+                alert.text("Artist not found! Try again!")
+                $("#band-info").prepend(alert);
+            }
+            else {
+                console.log(response.message.body.artist_list[0].artist.artist_id)
+                console.log(response.message.body.artist_list[0].artist.artist_share_url)
+                console.log(response.message.body.artist_list[0].artist.artist_name)
+                console.log(response.message.body.artist_list[0].artist.artist_twitter_url)
+                artistID = response.message.body.artist_list[0].artist.artist_id;
+                artistName = response.message.body.artist_list[0].artist.artist_name
 
+                $("#artist-name").text(artistName)
+                let newLink = $("<a>");
+                newLink.addClass("card-link");
+                let link = response.message.body.artist_list[0].artist.artist_share_url
+                newLink.attr("href", link);
+                newLink.attr("target", "_blank")
+                newLink.attr("id", "band-page");
+                newLink.text(artistName + " MusixMatch Band Page")
+                $("#band-info").append(newLink);
+                $("#band-info").append("<br>")
+                let twitter = $("<a>");
+                twitter.addClass("card-link");
+                let twitterURL = response.message.body.artist_list[0].artist.artist_twitter_url
+                twitter.attr("href", twitterURL);
+                twitter.attr("target", "_blank")
+                twitter.attr("id", "band-twitter");
+                twitter.text(artistName + " Twitter")
+                $("#band-info").append(twitter);
+                let lyricSearch = $("<p>")
+                lyricSearch.text("Search for a song by " + artistName + " to get lyrics!")
+                $("#band-info").append(lyricSearch);
+                artistSearch = "";
+                artistName = "";
+            }
+        })
+    })
     $(document).on("click", "#songSubmit", function () {
+        event.preventDefault();
         songSearch = $("#song-name").val();
-
+        $("#landing").hide();
+        $("#search").show();
         $.ajax({
             type: "GET",
             data: {
@@ -120,14 +193,14 @@ $(document).ready(function () {
                     }
                 }).then(function (response) {
                     console.log(response.message.body.lyrics.lyrics_body);
-                    $("#band-info").empty();
+                    $("#lyrics").empty();
                     let lyrics = response.message.body.lyrics.lyrics_body;
                     let lyricsClean = lyrics.split("\n\n");
                     let lyricsLink = response.message.body.lyrics.backlink_url;
                     console.log(lyricsClean)
-                    let title = $("<h6>");
+                    let title = $("<h4>");
                     title.text(songName);
-                    $("#band-info").append(title);
+                    $("#lyrics").append(title);
                     for (i = 0; i < lyricsClean.length; i++) {
                         let newDiv = $("<div>");
                         newDiv.attr("id", "lyricsStanza");
@@ -141,13 +214,13 @@ $(document).ready(function () {
                             newP.text(lyricsLineClean[j]);
                             newDiv.append(newP);
                         }
-                        $("#band-info").append(newDiv);
+                        $("#lyrics").append(newDiv);
                     }
                     let link = $("<a>");
                     link.attr("href", lyricsLink);
                     link.attr("target", "_blank")
                     link.text("Get The Full Lyrics");
-                    $("#band-info").append(link);
+                    $("#lyrics").append(link);
                     songSearch = "";
                 })
             }
@@ -169,14 +242,16 @@ $(document).ready(function () {
             }
         }).then(function (response) {
             console.log(response.performers[0].has_upcoming_events)
-            if (artistSearch == "Elvis" || artistSearch == "Evlis Presley") {
+            if (artistSearch == "Elvis" || artistSearch == "Elvis Presley" || artistSearch == "elvis") {
                 let elvis = $("<p>")
                 elvis.text("Elvis has left the building");
                 $("#seatGeek").append(elvis);
             }
 
             else if (response.performers[0].has_upcoming_events === false) {
-                let noShows = $("<p>")
+                let noShows = $("<div>")
+                noShows.addClass("col-md-3");
+                noShows.addClass("card");
                 noShows.text("Sorry! We Did Not Find Any Shows For This Artist!")
                 $("#seatGeek").append(noShows)
             }
@@ -185,17 +260,31 @@ $(document).ready(function () {
                     let perfName = response.performers[i].name;
                     let perfEvent = response.performers[i].num_upcoming_events;
                     let tixURL = response.performers[i].url;
+                    let newCard = $("<div>")
+                    newCard.addClass("col-md-3");
+                    newCard.addClass("card");
+                    let fillDiv = $("<div>")
+                    fillDiv.addClass("col-md-1");
+                    let newDiv = $("<div>");
+                    newDiv.addClass("card-body")
                     let pName = $("<h6>");
                     pName.text(perfName);
                     let pEvents = $("<p>");
                     pEvents.text("Upcoming shows: " + perfEvent)
+                    let footerDiv = $("<div>");
+                    footerDiv.addClass("card-footer")
                     let tixLink = $("<a>");
                     tixLink.attr("href", tixURL);
                     tixLink.attr("target", "_blank");
                     tixLink.text("Check out tickets on SeatGeek!")
-                    $("#seatGeek").append(pName);
-                    $("#seatGeek").append(pEvents);
-                    $("#seatGeek").append(tixLink);
+                    newCard.append(imageArray[i])
+                    newDiv.append(pName);
+                    newDiv.append(pEvents);
+                    footerDiv.append(tixLink);
+                    newCard.append(newDiv);
+                    newCard.append(footerDiv);
+                    $("#seatGeek").append(newCard);
+                    $("#seatGeek").append(fillDiv);
                 }
             }
         })
