@@ -1,3 +1,20 @@
+/* added text animation timing */
+#title {
+    -webkit-animation-duration: 4s;
+    /* -webkit-animation-delay: 2s; */
+    /* -webkit-animation-iteration-count: infinite; */
+}
+
+#title2{
+    -webkit-animation-duration: 3s;
+    -webkit-animation-delay: 4s;
+}
+
+#titleSearch{
+    -webkit-animation-duration: 6s;
+    -webkit-animation-delay: 5s;
+}
+
 * {
     margin: 0;
     padding: 0;

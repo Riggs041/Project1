@@ -18,6 +18,8 @@
     <link rel="stylesheet" type="text/css" media="screen" href="assets/reset.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/style.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="assets/css/search.css" />
+    <!-- Added Animate Stylesheet -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
     <script src="assets/javascript/app.js"></script>
 </head>
 
@@ -29,14 +31,17 @@
     <div id="landing">
         <div class="hero-container">
             <div class="hero-title">
-                <h1>music
+                <!-- added animated text -->
+                <h1  id="title" class="animated zoomInDown">music
                     <span style="color:#E2584D;">Magician</span>
                 </h1>
                 <div class="hero-sub">
-                    <p>Relive the magic of your favorite music.<br> Discover upcoming concerts</p>
+                    <p id="title2" class="animated fadeInDown">Relive the magic of your favorite music.
+                        <br> Discover upcoming concerts</p>
                 </div>
             </div>
-            <div class="hero-search">
+            <!-- added animated search bar -->
+            <div id="titleSearch" class="hero-search; animated bounceInRight">
                 <form id="music-form">
                     <input type="text" id="music-input" placeholder="Search Artist Here">
                     <input type="submit" id="find-music" value="Search">
