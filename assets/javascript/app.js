@@ -118,7 +118,7 @@ $(document).ready(function () {
 
             }
         }).then(function (response) {
-            if (artistSearch == "Elvis" || artistSearch == "Elvis Presley" || artistSearch == "elvis") {
+            if (artistID === 702) {
                 let newCard = $("<div>")
                 newCard.addClass("col-md-12");
                 newCard.addClass("card");
