@@ -14,155 +14,16 @@ $(document).ready(function () {
 
     $(document).on("click", "#find-music", function () {
         event.preventDefault();
-        $("#landing").hide();
-        $("#search").show();
         artistSearch = $("#music-input").val();
-        console.log(artistSearch)
-        seatGeakAPI();
-        giphyAPI();
-        $("#lyrics").empty();
-        $("#wikiInfo").empty();
-        $.ajax({
-            url: "https://en.wikipedia.org/w/api.php?action=opensearch&limit=1&format=json&search=" + artistSearch,
-            dataType: 'jsonp',
-            success: function (data) {
-                console.log(data)
-                console.log(data[2][0])
-                console.log(data[3][0])
-            }
-        }).then(function (response) {
-            let bandP = $("<p>");
-            bandP.text(response[2][0]);
-            $("#wikiInfo").append(bandP)
-            let newLink = $("<a>");
-            newLink.addClass("card-link");
-            let link = response[3][0];
-            newLink.attr("href", link);
-            newLink.attr("target", "_blank")
-            newLink.attr("id", "band-page");
-            newLink.text(artistName + " Wikipedia Page")
-            $("#wikiInfo").append(newLink);
-            $("#wikiInfo").append("<br>")
-        });
-        $.ajax({
-            type: "GET",
-            data: {
-                apikey: "09b22cab81909924e1542cfdadffe284",
-                q_artist: artistSearch,
-                format: "jsonp",
-                callback: "jsonp_callback"
-            },
-            url: "https://api.musixmatch.com/ws/1.1/artist.search?",
-            dataType: "jsonp",
-            jsonpCallback: 'jsonp_callback',
-            contentType: 'application/json',
-            success: function (data) {
-                console.log(data);
-            }
-        }).then(function (response) {
-            if (response.message.body.artist_list.length === 0) {
-                let alert = $("<p>")
-                alert.text("Artist not found! Try again!")
-                $("#wikiInfo").prepend(alert);
-            }
-            else {
-                console.log(response.message.body.artist_list[0].artist.artist_id)
-                console.log(response.message.body.artist_list[0].artist.artist_share_url)
-                console.log(response.message.body.artist_list[0].artist.artist_name)
-                console.log(response.message.body.artist_list[0].artist.artist_twitter_url)
-                artistID = response.message.body.artist_list[0].artist.artist_id;
-                artistName = response.message.body.artist_list[0].artist.artist_name
-
-                $("#artist-name").text(artistName)
-                let twitter = $("<a>");
-                twitter.addClass("card-link");
-                let twitterURL = response.message.body.artist_list[0].artist.artist_twitter_url
-                twitter.attr("href", twitterURL);
-                twitter.attr("target", "_blank")
-                twitter.attr("id", "band-twitter");
-                twitter.text(artistName + " Twitter")
-                $("#wikiInfo").append(twitter);
-                artistSearch = "";
-                artistName = "";
-            }
-        })
+        musicSearch();
     })
+
     $(document).on("click", "#find-music2", function () {
         event.preventDefault();
-        $("#landing").hide();
-        $("#search").show();
         artistSearch = $("#music-input2").val();
-        console.log(artistSearch)
-        seatGeakAPI();
-        giphyAPI();
-        $("#lyrics").empty();
-        $("#wikiInfo").empty();
-        $.ajax({
-            url: "https://en.wikipedia.org/w/api.php?action=opensearch&limit=1&format=json&search=" + artistSearch,
-            dataType: 'jsonp',
-            success: function (data) {
-                console.log(data)
-                console.log(data[2][0])
-                console.log(data[3][0])
-            }
-        }).then(function (response) {
-            let bandP = $("<p>");
-            bandP.text(response[2][0]);
-            $("#wikiInfo").append(bandP)
-            let newLink = $("<a>");
-            newLink.addClass("card-link");
-            let link = response[3][0];
-            newLink.attr("href", link);
-            newLink.attr("target", "_blank")
-            newLink.attr("id", "band-page");
-            newLink.text(artistName + " Wikipedia Page")
-            $("#wikiInfo").append(newLink);
-            $("#wikiInfo").append("<br>")
-        });
-        $.ajax({
-            type: "GET",
-            data: {
-                apikey: "09b22cab81909924e1542cfdadffe284",
-                q_artist: artistSearch,
-                format: "jsonp",
-                callback: "jsonp_callback"
-            },
-            url: "https://api.musixmatch.com/ws/1.1/artist.search?",
-            dataType: "jsonp",
-            jsonpCallback: 'jsonp_callback',
-            contentType: 'application/json',
-            success: function (data) {
-                console.log(data);
-            }
-        }).then(function (response) {
-            if (response.message.body.artist_list.length === 0) {
-                $("#artist-name").text("")
-                let alert = $("<p>")
-                alert.text("Artist not found! Try again!")
-                $("#wikiInfo").prepend(alert);
-            }
-            else {
-                console.log(response.message.body.artist_list[0].artist.artist_id)
-                console.log(response.message.body.artist_list[0].artist.artist_share_url)
-                console.log(response.message.body.artist_list[0].artist.artist_name)
-                console.log(response.message.body.artist_list[0].artist.artist_twitter_url)
-                artistID = response.message.body.artist_list[0].artist.artist_id;
-                artistName = response.message.body.artist_list[0].artist.artist_name
-
-                $("#artist-name").text(artistName)
-                let twitter = $("<a>");
-                twitter.addClass("card-link");
-                let twitterURL = response.message.body.artist_list[0].artist.artist_twitter_url
-                twitter.attr("href", twitterURL);
-                twitter.attr("target", "_blank")
-                twitter.attr("id", "band-twitter");
-                twitter.text(artistName + " Twitter")
-                $("#wikiInfo").append(twitter);
-                artistSearch = "";
-                artistName = "";
-            }
-        })
+        musicSearch();
     })
+
     $(document).on("click", "#songSubmit", function () {
         event.preventDefault();
         songSearch = $("#song-name").val();
@@ -185,66 +46,60 @@ $(document).ready(function () {
                 console.log(data);
             }
         }).then(function (response) {
-            console.log(trackID);
-            if (response.message.body.track_list[0].track.has_lyrics === 0 || response.message.body.track_list.length === 0) {
-                $("#lyrics").empty();
-                let alert = $("<p>")
-                alert.text("Lyrics not found! Try a differnt song!")
-                $("#lyrics").append(alert);
+            if (response.message.body.track_list.length < 0) {
+                if (response.message.body.track_list[0].track.has_lyrics === 1) {
+                    trackID = response.message.body.track_list[0].track.track_id;
+                    songName = response.message.body.track_list[0].track.track_name;
+                    $.ajax({
+                        type: "GET",
+                        data: {
+                            apikey: "09b22cab81909924e1542cfdadffe284",
+                            track_id: trackID,
+                            format: "jsonp",
+                            callback: "jsonp_callback"
+                        },
+                        url: "https://api.musixmatch.com/ws/1.1/track.lyrics.get?",
+                        dataType: "jsonp",
+                        jsonpCallback: 'jsonp_callback',
+                        contentType: 'application/json',
+                        success: function (data) {
+                            console.log(data);
+                        }
+                    }).then(function (response) {
+                        $("#lyrics").empty();
+                        let lyrics = response.message.body.lyrics.lyrics_body;
+                        let lyricsClean = lyrics.split("\n\n");
+                        let lyricsLink = response.message.body.lyrics.backlink_url;
+                        let title = $("<h4>");
+                        title.text(songName);
+                        $("#lyrics").append(title);
+                        for (i = 0; i < lyricsClean.length; i++) {
+                            let newDiv = $("<div>");
+                            newDiv.attr("id", "lyricsStanza");
+                            let lyricsLine = lyricsClean[i];
+                            lyricsLineClean = lyricsLine.split("\n")
+                            for (j = 0; j < lyricsLineClean.length; j++) {
+                                let newP = $("<p>");
+                                newP.attr("id", "lyricsLine")
+                                newP.text(lyricsLineClean[j]);
+                                newDiv.append(newP);
+                            }
+                            $("#lyrics").append(newDiv);
+                        }
+                        let link = $("<a>");
+                        link.attr("href", lyricsLink);
+                        link.attr("target", "_blank")
+                        link.text("Get The Full Lyrics");
+                        $("#lyrics").append(link);
+                        songSearch = "";
+                    })
+                }
+                else {
+                    noLyrics();
+                }
             }
             else {
-                trackID = response.message.body.track_list[0].track.track_id;
-                songName = response.message.body.track_list[0].track.track_name;
-                console.log(songName);
-                console.log(trackID);
-                console.log(songSearch);
-                $.ajax({
-                    type: "GET",
-                    data: {
-                        apikey: "09b22cab81909924e1542cfdadffe284",
-                        track_id: trackID,
-                        format: "jsonp",
-                        callback: "jsonp_callback"
-                    },
-                    url: "https://api.musixmatch.com/ws/1.1/track.lyrics.get?",
-                    dataType: "jsonp",
-                    jsonpCallback: 'jsonp_callback',
-                    contentType: 'application/json',
-                    success: function (data) {
-                        console.log(data);
-                    }
-                }).then(function (response) {
-                    console.log(response.message.body.lyrics.lyrics_body);
-                    $("#lyrics").empty();
-                    let lyrics = response.message.body.lyrics.lyrics_body;
-                    let lyricsClean = lyrics.split("\n\n");
-                    let lyricsLink = response.message.body.lyrics.backlink_url;
-                    console.log(lyricsClean)
-                    let title = $("<h4>");
-                    title.text(songName);
-                    $("#lyrics").append(title);
-                    for (i = 0; i < lyricsClean.length; i++) {
-                        let newDiv = $("<div>");
-                        newDiv.attr("id", "lyricsStanza");
-                        let lyricsLine = lyricsClean[i];
-                        console.log(lyricsLine);
-                        lyricsLineClean = lyricsLine.split("\n")
-                        console.log(lyricsLineClean)
-                        for (j = 0; j < lyricsLineClean.length; j++) {
-                            let newP = $("<p>");
-                            newP.attr("id", "lyricsLine")
-                            newP.text(lyricsLineClean[j]);
-                            newDiv.append(newP);
-                        }
-                        $("#lyrics").append(newDiv);
-                    }
-                    let link = $("<a>");
-                    link.attr("href", lyricsLink);
-                    link.attr("target", "_blank")
-                    link.text("Get The Full Lyrics");
-                    $("#lyrics").append(link);
-                    songSearch = "";
-                })
+                noLyrics();
             }
         })
     })
@@ -263,32 +118,42 @@ $(document).ready(function () {
 
             }
         }).then(function (response) {
-            console.log(response.performers[0].has_upcoming_events)
             if (artistSearch == "Elvis" || artistSearch == "Elvis Presley" || artistSearch == "elvis") {
                 let newCard = $("<div>")
-                    newCard.addClass("col-md-12");
-                    newCard.addClass("card");
-                    let newDiv = $("<div>");
-                    newDiv.addClass("card-body")
-                    let pName = $("<h6>");
-                    pName.text("Elvis Presley");
-                    let pEvents = $("<p>");
-                    pEvents.text("Elvis Has Left The Building")
-                    let footerDiv = $("<div>");
-                    footerDiv.addClass("card-footer")
-                    newDiv.append(pName);
-                    newDiv.append(pEvents);
-                    
-                    newCard.append(newDiv);
-                    newCard.append(footerDiv);
-                    $("#seatGeek").append(newCard);
+                newCard.addClass("col-md-12");
+                newCard.addClass("card");
+                let newDiv = $("<div>");
+                newDiv.addClass("card-body")
+                let pName = $("<h6>");
+                pName.text("Elvis Presley");
+                let pEvents = $("<p>");
+                pEvents.text("Elvis Has Left The Building")
+                let footerDiv = $("<div>");
+                footerDiv.addClass("card-footer")
+                newDiv.append(pName);
+                newDiv.append(pEvents);
+                newCard.append(newDiv);
+                newCard.append(footerDiv);
+                $("#seatGeek").append(newCard);
             }
 
             else if (response.performers[0].has_upcoming_events === false) {
+                let perfName = response.performers[0].name;
                 let noShows = $("<div>")
-                noShows.addClass("col-md-3");
+                noShows.addClass("col-md-12");
                 noShows.addClass("card");
-                noShows.text("Sorry! We Did Not Find Any Shows For This Artist!")
+                let newDiv = $("<div>");
+                newDiv.addClass("card-body");
+                let pName = $("<h6>");
+                pName.text(perfName);
+                let pEvents = $("<p>");
+                pEvents.text("Sorry! We Did Not Find Any Shows For This Artist!")
+                let footerDiv = $("<div>")
+                footerDiv.addClass("card-footer");
+                newDiv.append(pName)
+                newDiv.append(pEvents)
+                noShows.append(newDiv)
+                noShows.append(footerDiv)
                 $("#seatGeek").append(noShows)
             }
             else {
@@ -328,7 +193,7 @@ $(document).ready(function () {
             url: searchURL,
             method: "GET",
             data: {
-                "limit": 2,
+                "limit": 4,
                 "q": artistSearch,
             }
         }).then(function (response) {
@@ -338,7 +203,7 @@ $(document).ready(function () {
             for (var i = 0; i < results.length; i++) {
                 let newDiv = $("<div>");
                 newDiv.attr("id", "newGif");
-                let still = results[i].images.fixed_height_still.url;
+                let still = results[i].images.fixed_height_small_still.url;
                 let newGif = $("<img>");
                 newGif.attr("src", still);
                 newDiv.append(newGif);
@@ -346,4 +211,84 @@ $(document).ready(function () {
             };
         });
     };
+
+    function noLyrics() {
+        $("#lyrics").empty();
+        let alert = $("<p>")
+        alert.text("Lyrics not found! Try a differnt song!")
+        $("#lyrics").append(alert);
+    }
+
+    function musicSearch() {
+        $("#landing").hide();
+        $("#search").show();
+        console.log(artistSearch)
+        seatGeakAPI();
+        giphyAPI();
+        $("#lyrics").empty();
+        $("#wikiInfo").empty();
+        $.ajax({
+            url: "https://en.wikipedia.org/w/api.php?action=opensearch&limit=1&format=json&search=" + artistSearch,
+            dataType: 'jsonp',
+            success: function (data) {
+                console.log(data)
+                console.log(data[2][0])
+                console.log(data[3][0])
+            }
+        }).then(function (response) {
+            let bandP = $("<p>");
+            bandP.text(response[2][0]);
+            $("#wikiInfo").prepend(bandP)
+            let newLink = $("<a>");
+            newLink.addClass("card-link");
+            let link = response[3][0];
+            newLink.attr("href", link);
+            newLink.attr("target", "_blank")
+            newLink.attr("id", "band-page");
+            newLink.text(artistName + " Wikipedia Page")
+            $("#wikiInfo").append(newLink);
+            $("#wikiInfo").append("<br>")
+        });
+        $.ajax({
+            type: "GET",
+            data: {
+                apikey: "09b22cab81909924e1542cfdadffe284",
+                q_artist: artistSearch,
+                format: "jsonp",
+                callback: "jsonp_callback"
+            },
+            url: "https://api.musixmatch.com/ws/1.1/artist.search?",
+            dataType: "jsonp",
+            jsonpCallback: 'jsonp_callback',
+            contentType: 'application/json',
+            success: function (data) {
+                console.log(data);
+            }
+        }).then(function (response) {
+            if (response.message.body.artist_list.length === 0) {
+                let alert = $("<p>")
+                alert.text("Artist not found! Try again!")
+                $("#wikiInfo").prepend(alert);
+            }
+            else {
+                console.log(response.message.body.artist_list[0].artist.artist_id)
+                console.log(response.message.body.artist_list[0].artist.artist_share_url)
+                console.log(response.message.body.artist_list[0].artist.artist_name)
+                console.log(response.message.body.artist_list[0].artist.artist_twitter_url)
+                artistID = response.message.body.artist_list[0].artist.artist_id;
+                artistName = response.message.body.artist_list[0].artist.artist_name
+                $("#artist-name").text(artistName)
+                let twitter = $("<a>");
+                twitter.addClass("card-link");
+                let twitterURL = response.message.body.artist_list[0].artist.artist_twitter_url
+                twitter.attr("href", twitterURL);
+                twitter.attr("target", "_blank")
+                twitter.attr("id", "band-twitter");
+                twitter.text(artistName + " Twitter")
+                $("#wikiInfo").append(twitter);
+                artistSearch = "";
+                artistName = "";
+            }
+        })
+    }
 });
