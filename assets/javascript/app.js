@@ -131,7 +131,7 @@ $(document).ready(function () {
                 let newDiv = $("<div>");
                 newDiv.addClass("card-body")
                 let pName = $("<h6>");
-                pName.text("Elvis Presley");
+                pName.text("");
                 let pEvents = $("<img>");
                 pEvents.attr("src", "assets/images/elvis.jpg")
                 let footerDiv = $("<div>");
@@ -237,7 +237,7 @@ $(document).ready(function () {
         $("#wikiInfo").empty();
         //wiki API
         $.ajax({
-            url: "https://en.wikipedia.org/w/api.php?action=opensearch&limit=1&format=json&search=" + artistSearch,
+            url: "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=" + artistSearch,
             dataType: 'jsonp',
             success: function (data) {
                 console.log(data)
@@ -245,9 +245,11 @@ $(document).ready(function () {
                 console.log(data[3][0])
             }
         }).then(function (response) {
-            let bandP = $("<p>");
-            bandP.text(response[2][0]);
-            $("#wikiInfo").prepend(bandP)
+            for (var i = 0; i < response[2].length; i++) {
+                let bandP = $("<p>");
+                bandP.text(response[2][i]);
+                $("#wikiInfo").append(bandP);
+            }
             let newLink = $("<a>");
             newLink.addClass("card-link");
             let link = response[3][0];

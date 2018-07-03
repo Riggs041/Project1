@@ -136,3 +136,8 @@ input::placeholder {
     overflow: auto;
     
 }
+
+#wikiInfo {
+    height: 300px;
+    overflow: auto;
+}
