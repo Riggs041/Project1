@@ -23,9 +23,8 @@
 
 <body>
     <div class="head-container">
-        <h1>m
-            <span style="color:#E2584D;">M.</span>
-        </h1>
+        <h1>m<span style="color:#E2584D;">M. <a href="about.html">About</a></span></h1>
+        
     </div>
     <div id="landing">
         <div class="hero-container">
@@ -34,7 +33,7 @@
                     <span style="color:#E2584D;">Magician</span>
                 </h1>
                 <div class="hero-sub">
-                    <p>Discover new music and upcoming concerts.</p>
+                    <p>Relive the magic of your favorite music.<br> Discover upcoming concerts</p>
                 </div>
             </div>
             <div class="hero-search">
@@ -120,31 +119,34 @@
     </div>
     <div id="search">
         <div class="container text-center">
-            <h3>Discover the Magic</h3>
+            <h3 id="artist-name">Discover the Magic</h3>
             <br>
+            <div id="wikiInfo">
+                <p>fjsdlkfjsdlkjflksdjflksdfjlsdjflksd</p>
+                
+            </div>
+            <div id="main-content">
             <div class="row">
-                <div class="col-md-4 sidenav" style="background-color:#3c4044">
+                <div class="col-md-7 sidenav gallery0" style="background-color:#3c4044">
                     <nav class="navbar navbar-light bg-light">
                         <a class="navbar-brand" style="color: aliceblue">GIF/Photo Gallery</a>
                         <form id="music-form">
-                            <input type="text" id="music-input2" placeholder="Search Artist Here">
-                            <input type="submit" id="find-music2" value="Search">
+                            <input class="form-control mr-md-2" type="text" id="music-input2" placeholder="Search Artist Here">
+                            <input class="btn btn-outline-success my-2 my-md-0" type="submit" id="find-music2" value="Search">
                         </form>
                     </nav>
                     <h4 id="artist-name"></h4>
                     <hr>
-                    <div class="well" id="imghere">
-
-                    </div>
-
+                    <div class="well" id="imghere"></div>
                 </div>
 
-                <div class="col-md-4 text-center">
+
+                <!-- <div class="col-md-4 text-center">
                     <div class="well" style="background-color:#3c4044" id="band-info">
 
                     </div>
                     <hr>
-                </div>
+                </div> -->
 
                 <div class="col-md-4 sidenav" style="background-color:#3c4044">
                     <nav class="navbar navbar-light bg-light">
@@ -157,11 +159,10 @@
 
                     <hr>
                     <div class="lyrics" id="lyrics" style="color: #E2584D">
-
                     </div>
                 </div>
-
                 <hr>
+            </div>
             </div>
 
             <div class="container-fluid text-center">
@@ -175,12 +176,13 @@
 
             <hr>
 
-            <footer class="container-fluid text-center" style="background-color: #3c4044">
+           
+        </div>
+        <footer class="container-fluid text-center" style="background-color: #3c4044">
                 <p>Footer Text</p>
             </footer>
-        </div>
     </div>
-
+   
 
 </body>
 

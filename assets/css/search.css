@@ -1,3 +1,20 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    font-size: 1.5rem;
+    color: white;
+    margin-left: 10px;
+}
+a:hover {
+    text-decoration: none;
+    color: #E2584D;
+}
+
 h4 {
     color: #E2584D;
 }
@@ -7,14 +24,33 @@ h4 {
     color: #101010;
 }
 
+#wikiInfo {
+    background-color: #3c4044;
+    color: white;
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
 .card {
     background-color: #3c4044;
     color: aliceblue;
+    opacity: 0.9;
 }
 
 h3 {
     color: aliceblue;
+    margin-top: 30px;
+    font-size: 3em;
 }
+
+.well img {
+    margin-right: 5px;
+}
+
+#music-form {
+    display: inline-block;
+}
+
 
 body {
     background-image: url("https://images.unsplash.com/photo-1459749411175-04bf5292ceea?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2891f249f4ef797292704c77ab664a59&auto=format&fit=crop&w=1950&q=80");
@@ -28,7 +64,20 @@ img {
 
 .navbar {
     margin-bottom: 0;
-    border-radius: 0;
+    border-radius: 4px;
+}
+
+.city {
+    width: 100%;
+    height: 200px;
+}
+
+.gallery0 {
+    margin-right: 15px;
+}
+
+#main-content {
+    width: 100%;
 }
 
 /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
@@ -42,8 +91,9 @@ img {
 .sidenav {
     padding-top: 15px;
     background-color: #f1f1f1;
-    height: 100%;
+    height: 600px;
     text-align: center;
+    opacity: 0.9;
 }
 
 /* Set black background color, white text and some padding */
@@ -52,6 +102,7 @@ footer {
     background-color: #555;
     color: white;
     padding: 15px;
+    width: 100%;
 }
 
 /* On small screens, set height to 'auto' for sidenav and grid */
