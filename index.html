@@ -138,17 +138,20 @@
             </div>
             <div id="main-content">
                 <div class="row">
-                    <div class="col-md-7 sidenav gallery0" style="background-color:#3c4044">
-                        <nav class="navbar navbar-light bg-light">
-                            <form id="music-form">
-                                <input class="form-control mr-md-2" type="text" id="music-input2" placeholder="Search Artist Here">
-                                <input class="btn btn-outline-success my-2 my-md-0" type="submit" id="find-music2" value="Search">
+                    <div class="col-md-8 sidenav gallery0" style="background-color:#3c4044">
+                        <nav class="navbar navbar-light bg-light artistName" data-spy="affix">
+                            <form id="music-form" class="form-inline searchBox">
+							  <h5>Search Artist Name</h5>
+                                <input class="form-control mr-md-2 artistForm" type="text" id="music-input2" placeholder="Search Artist Here">
+                                <input class="btn btn-outline-success my-2 my-md-0 musicSearch" type="submit" id="find-music2" value="Search">
                             </form>
                         </nav>
                         <h4 id="artist-name"></h4>
                         <hr>
                         <div class="well" id="imghere"></div>
                     </div>
+
+                    
 
 
                     <!-- <div class="col-md-4 text-center">
