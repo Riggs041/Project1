@@ -232,7 +232,6 @@ $(document).ready(function () {
         $("#landing").hide();
         $("#search").show();
         console.log(artistSearch)
-        seatGeakAPI();
         giphyAPI();
         $("#lyrics").empty();
         $("#wikiInfo").empty();
@@ -285,6 +284,7 @@ $(document).ready(function () {
                 artistID = response.message.body.artist_list[0].artist.artist_id;
                 artistName = response.message.body.artist_list[0].artist.artist_name
                 $("#artist-name").text(artistName)
+                seatGeakAPI();
                 artistSearch = "";
                 artistName = "";
             }
