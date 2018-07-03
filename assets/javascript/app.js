@@ -19,9 +19,9 @@ $(document).ready(function () {
         artistSearch = $("#music-input").val();
         console.log(artistSearch)
         seatGeakAPI();
-        flickrAPI();
+        giphyAPI();
         $("#lyrics").empty();
-        $("#band-info").empty();
+        $("#wikiInfo").empty();
         $.ajax({
             url: "https://en.wikipedia.org/w/api.php?action=opensearch&limit=1&format=json&search=" + artistSearch,
             dataType: 'jsonp',
@@ -33,7 +33,7 @@ $(document).ready(function () {
         }).then(function (response) {
             let bandP = $("<p>");
             bandP.text(response[2][0]);
-            $("#band-info").append(bandP)
+            $("#wikiInfo").append(bandP)
             let newLink = $("<a>");
             newLink.addClass("card-link");
             let link = response[3][0];
@@ -41,8 +41,8 @@ $(document).ready(function () {
             newLink.attr("target", "_blank")
             newLink.attr("id", "band-page");
             newLink.text(artistName + " Wikipedia Page")
-            $("#band-info").append(newLink);
-            $("#band-info").append("<br>")
+            $("#wikiInfo").append(newLink);
+            $("#wikiInfo").append("<br>")
         });
         $.ajax({
             type: "GET",
@@ -63,7 +63,7 @@ $(document).ready(function () {
             if (response.message.body.artist_list.length === 0) {
                 let alert = $("<p>")
                 alert.text("Artist not found! Try again!")
-                $("#band-info").prepend(alert);
+                $("#wikiInfo").prepend(alert);
             }
             else {
                 console.log(response.message.body.artist_list[0].artist.artist_id)
@@ -81,7 +81,7 @@ $(document).ready(function () {
                 twitter.attr("target", "_blank")
                 twitter.attr("id", "band-twitter");
                 twitter.text(artistName + " Twitter")
-                $("#band-info").append(twitter);
+                $("#wikiInfo").append(twitter);
                 artistSearch = "";
                 artistName = "";
             }
@@ -94,9 +94,9 @@ $(document).ready(function () {
         artistSearch = $("#music-input2").val();
         console.log(artistSearch)
         seatGeakAPI();
-        flickrAPI();
+        giphyAPI();
         $("#lyrics").empty();
-        $("#band-info").empty();
+        $("#wikiInfo").empty();
         $.ajax({
             url: "https://en.wikipedia.org/w/api.php?action=opensearch&limit=1&format=json&search=" + artistSearch,
             dataType: 'jsonp',
@@ -108,7 +108,7 @@ $(document).ready(function () {
         }).then(function (response) {
             let bandP = $("<p>");
             bandP.text(response[2][0]);
-            $("#band-info").append(bandP)
+            $("#wikiInfo").append(bandP)
             let newLink = $("<a>");
             newLink.addClass("card-link");
             let link = response[3][0];
@@ -116,8 +116,8 @@ $(document).ready(function () {
             newLink.attr("target", "_blank")
             newLink.attr("id", "band-page");
             newLink.text(artistName + " Wikipedia Page")
-            $("#band-info").append(newLink);
-            $("#band-info").append("<br>")
+            $("#wikiInfo").append(newLink);
+            $("#wikiInfo").append("<br>")
         });
         $.ajax({
             type: "GET",
@@ -139,7 +139,7 @@ $(document).ready(function () {
                 $("#artist-name").text("")
                 let alert = $("<p>")
                 alert.text("Artist not found! Try again!")
-                $("#band-info").prepend(alert);
+                $("#wikiInfo").prepend(alert);
             }
             else {
                 console.log(response.message.body.artist_list[0].artist.artist_id)
@@ -157,7 +157,7 @@ $(document).ready(function () {
                 twitter.attr("target", "_blank")
                 twitter.attr("id", "band-twitter");
                 twitter.text(artistName + " Twitter")
-                $("#band-info").append(twitter);
+                $("#wikiInfo").append(twitter);
                 artistSearch = "";
                 artistName = "";
             }
@@ -265,9 +265,23 @@ $(document).ready(function () {
         }).then(function (response) {
             console.log(response.performers[0].has_upcoming_events)
             if (artistSearch == "Elvis" || artistSearch == "Elvis Presley" || artistSearch == "elvis") {
-                let elvis = $("<p>")
-                elvis.text("Elvis has left the building");
-                $("#seatGeek").append(elvis);
+                let newCard = $("<div>")
+                    newCard.addClass("col-md-12");
+                    newCard.addClass("card");
+                    let newDiv = $("<div>");
+                    newDiv.addClass("card-body")
+                    let pName = $("<h6>");
+                    pName.text("Elvis Presley");
+                    let pEvents = $("<p>");
+                    pEvents.text("Elvis Has Left The Building")
+                    let footerDiv = $("<div>");
+                    footerDiv.addClass("card-footer")
+                    newDiv.append(pName);
+                    newDiv.append(pEvents);
+                    
+                    newCard.append(newDiv);
+                    newCard.append(footerDiv);
+                    $("#seatGeek").append(newCard);
             }
 
             else if (response.performers[0].has_upcoming_events === false) {
@@ -308,13 +322,13 @@ $(document).ready(function () {
             }
         })
     }
-    function flickrAPI() {
+    function giphyAPI() {
         var searchURL = "https://api.giphy.com/v1/gifs/search?api_key=rp7qhT7CkMUd9kywGAOxdwbvDyXqOsKb"
         $.ajax({
             url: searchURL,
             method: "GET",
             data: {
-                "limit": 5,
+                "limit": 2,
                 "q": artistSearch,
             }
         }).then(function (response) {
