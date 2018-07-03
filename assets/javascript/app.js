@@ -23,70 +23,27 @@ $(document).ready(function () {
         $("#lyrics").empty();
         $("#band-info").empty();
         $.ajax({
-            type: "GET",
-            data: {
-                apikey: "09b22cab81909924e1542cfdadffe284",
-                q_artist: artistSearch,
-                format: "jsonp",
-                callback: "jsonp_callback"
-            },
-            url: "https://api.musixmatch.com/ws/1.1/artist.search?",
-            dataType: "jsonp",
-            jsonpCallback: 'jsonp_callback',
-            contentType: 'application/json',
+            url: "https://en.wikipedia.org/w/api.php?action=opensearch&limit=1&format=json&search=" + artistSearch,
+            dataType: 'jsonp',
             success: function (data) {
-                console.log(data);
+                console.log(data)
+                console.log(data[2][0])
+                console.log(data[3][0])
             }
         }).then(function (response) {
-            if (response.message.body.artist_list.length === 0) {
-                let alert = $("<p>")
-                alert.text("Artist not found! Try again!")
-                $("#band-info").prepend(alert);
-            }
-            else {
-                console.log(response.message.body.artist_list[0].artist.artist_id)
-                console.log(response.message.body.artist_list[0].artist.artist_share_url)
-                console.log(response.message.body.artist_list[0].artist.artist_name)
-                console.log(response.message.body.artist_list[0].artist.artist_twitter_url)
-                artistID = response.message.body.artist_list[0].artist.artist_id;
-                artistName = response.message.body.artist_list[0].artist.artist_name
-
-                $("#artist-name").text(artistName)
-                let newLink = $("<a>");
-                newLink.addClass("card-link");
-                let link = response.message.body.artist_list[0].artist.artist_share_url
-                newLink.attr("href", link);
-                newLink.attr("target", "_blank")
-                newLink.attr("id", "band-page");
-                newLink.text(artistName + " MusixMatch Band Page")
-                $("#band-info").append(newLink);
-                $("#band-info").append("<br>")
-                let twitter = $("<a>");
-                twitter.addClass("card-link");
-                let twitterURL = response.message.body.artist_list[0].artist.artist_twitter_url
-                twitter.attr("href", twitterURL);
-                twitter.attr("target", "_blank")
-                twitter.attr("id", "band-twitter");
-                twitter.text(artistName + " Twitter")
-                $("#band-info").append(twitter);
-                let lyricSearch = $("<p>")
-                lyricSearch.text("Search for a song by " + artistName + " to get lyrics!")
-                $("#band-info").append(lyricSearch);
-                artistSearch = "";
-                artistName = "";
-            }
-        })
-    })
-    $(document).on("click", "#find-music2", function () {
-        event.preventDefault();
-        $("#landing").hide();
-        $("#search").show();
-        artistSearch = $("#music-input2").val();
-        console.log(artistSearch)
-        seatGeakAPI();
-        flickrAPI();
-        $("#lyrics").empty();
-        $("#band-info").empty();
+            let bandP = $("<p>");
+            bandP.text(response[2][0]);
+            $("#band-info").append(bandP)
+            let newLink = $("<a>");
+            newLink.addClass("card-link");
+            let link = response[3][0];
+            newLink.attr("href", link);
+            newLink.attr("target", "_blank")
+            newLink.attr("id", "band-page");
+            newLink.text(artistName + " Wikipedia Page")
+            $("#band-info").append(newLink);
+            $("#band-info").append("<br>")
+        });
         $.ajax({
             type: "GET",
             data: {
@@ -117,15 +74,6 @@ $(document).ready(function () {
                 artistName = response.message.body.artist_list[0].artist.artist_name
 
                 $("#artist-name").text(artistName)
-                let newLink = $("<a>");
-                newLink.addClass("card-link");
-                let link = response.message.body.artist_list[0].artist.artist_share_url
-                newLink.attr("href", link);
-                newLink.attr("target", "_blank")
-                newLink.attr("id", "band-page");
-                newLink.text(artistName + " MusixMatch Band Page")
-                $("#band-info").append(newLink);
-                $("#band-info").append("<br>")
                 let twitter = $("<a>");
                 twitter.addClass("card-link");
                 let twitterURL = response.message.body.artist_list[0].artist.artist_twitter_url
@@ -134,9 +82,82 @@ $(document).ready(function () {
                 twitter.attr("id", "band-twitter");
                 twitter.text(artistName + " Twitter")
                 $("#band-info").append(twitter);
-                let lyricSearch = $("<p>")
-                lyricSearch.text("Search for a song by " + artistName + " to get lyrics!")
-                $("#band-info").append(lyricSearch);
+                artistSearch = "";
+                artistName = "";
+            }
+        })
+    })
+    $(document).on("click", "#find-music2", function () {
+        event.preventDefault();
+        $("#landing").hide();
+        $("#search").show();
+        artistSearch = $("#music-input2").val();
+        console.log(artistSearch)
+        seatGeakAPI();
+        flickrAPI();
+        $("#lyrics").empty();
+        $("#band-info").empty();
+        $.ajax({
+            url: "https://en.wikipedia.org/w/api.php?action=opensearch&limit=1&format=json&search=" + artistSearch,
+            dataType: 'jsonp',
+            success: function (data) {
+                console.log(data)
+                console.log(data[2][0])
+                console.log(data[3][0])
+            }
+        }).then(function (response) {
+            let bandP = $("<p>");
+            bandP.text(response[2][0]);
+            $("#band-info").append(bandP)
+            let newLink = $("<a>");
+            newLink.addClass("card-link");
+            let link = response[3][0];
+            newLink.attr("href", link);
+            newLink.attr("target", "_blank")
+            newLink.attr("id", "band-page");
+            newLink.text(artistName + " Wikipedia Page")
+            $("#band-info").append(newLink);
+            $("#band-info").append("<br>")
+        });
+        $.ajax({
+            type: "GET",
+            data: {
+                apikey: "09b22cab81909924e1542cfdadffe284",
+                q_artist: artistSearch,
+                format: "jsonp",
+                callback: "jsonp_callback"
+            },
+            url: "https://api.musixmatch.com/ws/1.1/artist.search?",
+            dataType: "jsonp",
+            jsonpCallback: 'jsonp_callback',
+            contentType: 'application/json',
+            success: function (data) {
+                console.log(data);
+            }
+        }).then(function (response) {
+            if (response.message.body.artist_list.length === 0) {
+                $("#artist-name").text("")
+                let alert = $("<p>")
+                alert.text("Artist not found! Try again!")
+                $("#band-info").prepend(alert);
+            }
+            else {
+                console.log(response.message.body.artist_list[0].artist.artist_id)
+                console.log(response.message.body.artist_list[0].artist.artist_share_url)
+                console.log(response.message.body.artist_list[0].artist.artist_name)
+                console.log(response.message.body.artist_list[0].artist.artist_twitter_url)
+                artistID = response.message.body.artist_list[0].artist.artist_id;
+                artistName = response.message.body.artist_list[0].artist.artist_name
+
+                $("#artist-name").text(artistName)
+                let twitter = $("<a>");
+                twitter.addClass("card-link");
+                let twitterURL = response.message.body.artist_list[0].artist.artist_twitter_url
+                twitter.attr("href", twitterURL);
+                twitter.attr("target", "_blank")
+                twitter.attr("id", "band-twitter");
+                twitter.text(artistName + " Twitter")
+                $("#band-info").append(twitter);
                 artistSearch = "";
                 artistName = "";
             }
@@ -165,10 +186,11 @@ $(document).ready(function () {
             }
         }).then(function (response) {
             console.log(trackID);
-            if (response.message.body.track_list.length === 0) {
+            if (response.message.body.track_list[0].track.has_lyrics === 0 || response.message.body.track_list.length === 0) {
+                $("#lyrics").empty();
                 let alert = $("<p>")
-                alert.text("Song not found! Try again!")
-                $("#band-info").append(alert);
+                alert.text("Lyrics not found! Try a differnt song!")
+                $("#lyrics").append(alert);
             }
             else {
                 trackID = response.message.body.track_list[0].track.track_id;
@@ -287,33 +309,27 @@ $(document).ready(function () {
         })
     }
     function flickrAPI() {
-        var queryURL = "https://api.flickr.com/services/rest?method=flickr.photos.search&api_key=e7e4411acf0227d738e8535038de9843&text=" + artistSearch + "&format=json&nojsoncallback=1";
-
+        var searchURL = "https://api.giphy.com/v1/gifs/search?api_key=rp7qhT7CkMUd9kywGAOxdwbvDyXqOsKb"
         $.ajax({
-            url: queryURL,
+            url: searchURL,
             method: "GET",
-        })
-
-            .then(function (response) {
-                $("#imghere").empty();
-                var results = response.photos.photo
-                console.log(results)
-                for (var i = 50; i < 60; i++) {
-                    var farmid = results[i]["farm"];
-                    var serverid = results[i]["server"];
-                    var id = results[i]["id"];
-                    var secret = results[i]["secret"];
-
-                    console.log(farmid)
-                    console.log(serverid)
-                    console.log(id)
-                    console.log(secret)
-
-
-                    $("#imghere").append("<img src='https://farm" + farmid + ".staticflickr.com/" + serverid + "/" + id + "_" + secret + "_q.jpg'>");
-                }
-            });
+            data: {
+                "limit": 5,
+                "q": artistSearch,
+            }
+        }).then(function (response) {
+            console.log(response);
+            let results = response.data;
+            $("#imghere").empty();
+            for (var i = 0; i < results.length; i++) {
+                let newDiv = $("<div>");
+                newDiv.attr("id", "newGif");
+                let still = results[i].images.fixed_height_still.url;
+                let newGif = $("<img>");
+                newGif.attr("src", still);
+                newDiv.append(newGif);
+                $("#imghere").append(newDiv);
+            };
+        });
     };
-
 });
-
