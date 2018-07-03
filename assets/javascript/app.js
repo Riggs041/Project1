@@ -223,9 +223,9 @@ $(document).ready(function () {
     //runs when no lyrics are found
     function noLyrics() {
         $("#lyrics").empty();
-        let alert = $("<p>")
-        alert.text("Lyrics not found! Try a differnt song!")
-        $("#lyrics").append(alert);
+        let notFound = $("<p>")
+        notFound.text("Lyrics not found! Try a differnt song!")
+        $("#lyrics").append(notFound);
     }
     //main artist search function
     function musicSearch() {
@@ -285,14 +285,6 @@ $(document).ready(function () {
                 artistID = response.message.body.artist_list[0].artist.artist_id;
                 artistName = response.message.body.artist_list[0].artist.artist_name
                 $("#artist-name").text(artistName)
-                let twitter = $("<a>");
-                twitter.addClass("card-link");
-                let twitterURL = response.message.body.artist_list[0].artist.artist_twitter_url
-                twitter.attr("href", twitterURL);
-                twitter.attr("target", "_blank")
-                twitter.attr("id", "band-twitter");
-                twitter.text(artistName + " Twitter")
-                $("#wikiInfo").append(twitter);
                 artistSearch = "";
                 artistName = "";
             }
