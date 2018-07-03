@@ -141,3 +141,7 @@ input::placeholder {
     height: 300px;
     overflow: auto;
 }
+
+#song-name {
+    width: 50%;
+}
