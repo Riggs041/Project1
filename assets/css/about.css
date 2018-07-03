@@ -4,7 +4,8 @@
     border-radius: 50px;
     /* border: 2px solid lightgray; */
     box-shadow: 1px 1px 20px lightgray;
-    width: 90%;  
+    width: 90%;
+    opacity: .9;  
  }
  .collapsed{
      font-size: .8em;
@@ -48,7 +49,7 @@
      /* margin-top: 2%;     */
  }
  body {
-     background-color:#191919
+    background-image: url("https://images.unsplash.com/photo-1459749411175-04bf5292ceea?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=2891f249f4ef797292704c77ab664a59&auto=format&fit=crop&w=1950&q=80");
  }
  /* .names {
      color: #E2584D;
@@ -68,8 +69,9 @@
      background-color: #E2584D;
      padding: 20px;
      color: white;
-     letter-spacing: 4px;
+     letter-spacing: 2px;
      margin-bottom: 40px;
+     opacity: .9;
  }
  .names1 {
      margin-left: 15%;

@@ -85,7 +85,7 @@ img {
 }
 
 .gallery0 {
-    margin-right: 15px;
+   /* margin-right: 5px; */
 }
 
 #main-content {
@@ -120,6 +120,34 @@ footer {
     padding: 15px;
     width: 100%;
 }
+#artist-name {
+	color:  #E2584D;
+}
+#seatGeek h6, p{
+	color: white;
+}
+.artistForm {
+	
+	float: left;
+	
+}
+.musicSearch {
+	float: left;
+	
+}
+h5 {
+	float: left;
+	width: 100%;
+	text-align: left;
+	margin-top: 10px;
+	margin-left: 10px;
+	
+/*	margin: 10px;*/
+}
+.artistName {
+
+}
+
 
 /* On small screens, set height to 'auto' for sidenav and grid */
 

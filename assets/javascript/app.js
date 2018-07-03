@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    // declaring global variables
     let trackID = "";
     let artistID = "";
     let artistSearch = "";
@@ -11,19 +12,19 @@ $(document).ready(function () {
         '<img src="assets/images/nyc.jpg" class="city" alt="New York City">',
     ]
     $("#search").hide();
-
+    // music search from the main landing page
     $(document).on("click", "#find-music", function () {
         event.preventDefault();
         artistSearch = $("#music-input").val();
         musicSearch();
     })
-
+    //music search from the secondary page
     $(document).on("click", "#find-music2", function () {
         event.preventDefault();
         artistSearch = $("#music-input2").val();
         musicSearch();
     })
-
+    //search function when a song title is submitted
     $(document).on("click", "#songSubmit", function () {
         event.preventDefault();
         songSearch = $("#song-name").val();
@@ -46,7 +47,9 @@ $(document).ready(function () {
                 console.log(data);
             }
         }).then(function (response) {
-            if (response.message.body.track_list.length < 0) {
+            //code to run if the song title is found
+            if (response.message.body.track_list.length > 0) {
+                //code to run if the song has lyrics in the database
                 if (response.message.body.track_list[0].track.has_lyrics === 1) {
                     trackID = response.message.body.track_list[0].track.track_id;
                     songName = response.message.body.track_list[0].track.track_name;
@@ -94,16 +97,18 @@ $(document).ready(function () {
                         songSearch = "";
                     })
                 }
+                //runs if song is found but no lyrics are in database
                 else {
                     noLyrics();
                 }
             }
+            //runs if the song title is not found
             else {
                 noLyrics();
             }
         })
     })
-
+    //ticket API function. runs in conjusction with the artist search
     function seatGeakAPI() {
         $("#seatGeek").empty();
         $.ajax({
@@ -118,6 +123,7 @@ $(document).ready(function () {
 
             }
         }).then(function (response) {
+            //elvis easter egg
             if (artistID === 702) {
                 let newCard = $("<div>")
                 newCard.addClass("col-md-12");
@@ -125,9 +131,9 @@ $(document).ready(function () {
                 let newDiv = $("<div>");
                 newDiv.addClass("card-body")
                 let pName = $("<h6>");
-                pName.text("Elvis Presley");
-                let pEvents = $("<p>");
-                pEvents.text("Elvis Has Left The Building")
+                pName.text("");
+                let pEvents = $("<img>");
+                pEvents.attr("src", "assets/images/elvis.jpg")
                 let footerDiv = $("<div>");
                 footerDiv.addClass("card-footer")
                 newDiv.append(pName);
@@ -136,7 +142,7 @@ $(document).ready(function () {
                 newCard.append(footerDiv);
                 $("#seatGeek").append(newCard);
             }
-
+            //if there are no upcoming events, this runs
             else if (response.performers[0].has_upcoming_events === false) {
                 let perfName = response.performers[0].name;
                 let noShows = $("<div>")
@@ -156,6 +162,7 @@ $(document).ready(function () {
                 noShows.append(footerDiv)
                 $("#seatGeek").append(noShows)
             }
+            //runs if there are upcoming events
             else {
                 for (i = 0; i < 3; i++) {
                     let perfName = response.performers[i].name;
@@ -187,13 +194,14 @@ $(document).ready(function () {
             }
         })
     }
+    //giphyAPI. had issues with other image APIs so went with still images from giphy
     function giphyAPI() {
         var searchURL = "https://api.giphy.com/v1/gifs/search?api_key=rp7qhT7CkMUd9kywGAOxdwbvDyXqOsKb"
         $.ajax({
             url: searchURL,
             method: "GET",
             data: {
-                "limit": 4,
+                "limit": 20,
                 "q": artistSearch,
             }
         }).then(function (response) {
@@ -201,34 +209,35 @@ $(document).ready(function () {
             let results = response.data;
             $("#imghere").empty();
             for (var i = 0; i < results.length; i++) {
-                let newDiv = $("<div>");
-                newDiv.attr("id", "newGif");
+                // let newDiv = $("<div>");
+                // newDiv.attr("id", "newGif");
                 let still = results[i].images.fixed_height_small_still.url;
                 let newGif = $("<img>");
                 newGif.attr("src", still);
-                newDiv.append(newGif);
-                $("#imghere").append(newDiv);
+                newGif.attr("id", "gif")
+                // newDiv.append(newGif);
+                $("#imghere").append(newGif);
             };
         });
     };
-
+    //runs when no lyrics are found
     function noLyrics() {
         $("#lyrics").empty();
-        let alert = $("<p>")
-        alert.text("Lyrics not found! Try a differnt song!")
-        $("#lyrics").append(alert);
+        let notFound = $("<p>")
+        notFound.text("Lyrics not found! Try a differnt song!")
+        $("#lyrics").append(notFound);
     }
-
+    //main artist search function
     function musicSearch() {
         $("#landing").hide();
         $("#search").show();
         console.log(artistSearch)
-        seatGeakAPI();
         giphyAPI();
         $("#lyrics").empty();
         $("#wikiInfo").empty();
+        //wiki API
         $.ajax({
-            url: "https://en.wikipedia.org/w/api.php?action=opensearch&limit=1&format=json&search=" + artistSearch,
+            url: "https://en.wikipedia.org/w/api.php?action=opensearch&format=json&search=" + artistSearch,
             dataType: 'jsonp',
             success: function (data) {
                 console.log(data)
@@ -236,9 +245,11 @@ $(document).ready(function () {
                 console.log(data[3][0])
             }
         }).then(function (response) {
-            let bandP = $("<p>");
-            bandP.text(response[2][0]);
-            $("#wikiInfo").prepend(bandP)
+            for (var i = 0; i < response[2].length; i++) {
+                let bandP = $("<p>");
+                bandP.text(response[2][i]);
+                $("#wikiInfo").append(bandP);
+            }
             let newLink = $("<a>");
             newLink.addClass("card-link");
             let link = response[3][0];
@@ -249,6 +260,7 @@ $(document).ready(function () {
             $("#wikiInfo").append(newLink);
             $("#wikiInfo").append("<br>")
         });
+        //musixmatch API
         $.ajax({
             type: "GET",
             data: {
@@ -271,21 +283,10 @@ $(document).ready(function () {
                 $("#wikiInfo").prepend(alert);
             }
             else {
-                console.log(response.message.body.artist_list[0].artist.artist_id)
-                console.log(response.message.body.artist_list[0].artist.artist_share_url)
-                console.log(response.message.body.artist_list[0].artist.artist_name)
-                console.log(response.message.body.artist_list[0].artist.artist_twitter_url)
                 artistID = response.message.body.artist_list[0].artist.artist_id;
                 artistName = response.message.body.artist_list[0].artist.artist_name
                 $("#artist-name").text(artistName)
-                let twitter = $("<a>");
-                twitter.addClass("card-link");
-                let twitterURL = response.message.body.artist_list[0].artist.artist_twitter_url
-                twitter.attr("href", twitterURL);
-                twitter.attr("target", "_blank")
-                twitter.attr("id", "band-twitter");
-                twitter.text(artistName + " Twitter")
-                $("#wikiInfo").append(twitter);
+                seatGeakAPI();
                 artistSearch = "";
                 artistName = "";
             }
